@@ -1,2 +1,2 @@
-# goockmatchers
+# gomockmatchers
 Matchers for gomock
