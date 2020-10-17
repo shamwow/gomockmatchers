@@ -1,12 +1,12 @@
-# gomockmatchers
-Matchers for gomock
+# matchers
+Matchers for [gomock](https://github.com/golang/mock).
 
 ## Available Matchers
 
-#### StructMatcher
+#### Struct
 Description: Matches a struct based on matchers for each of the struct's field. If the field maps to a non `gomock.Matcher` value in the map, `gomock.Eq` is used.
 
-Example:
+Examples:
 ```go
 Struct(M{
   "FieldA": gomock.Eq(5),

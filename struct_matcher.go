@@ -1,4 +1,4 @@
-package gomockmatchers
+package matchers
 
 import (
 	"fmt"
