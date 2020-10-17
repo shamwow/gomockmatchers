@@ -4,11 +4,11 @@ Matchers for gomock
 ## Available Matchers
 
 #### StructMatcher
-Description: Matches a struct based on matchers for each of the struct field.
+Description: Matches a struct based on matchers for each of the struct's field. If the field maps to a non `gomock.Matcher` value in the map, `gomock.Eq` is used.
 
 Example:
 ```go
-NewStructMatcher(StructMatch{
+Struct(M{
   "FieldA": gomock.Eq(5),
   "FieldB": gomock.Any(),
   "FieldC": 4,

@@ -8,7 +8,7 @@ import (
 )
 
 func TestStructMatcher(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"Test1": gomock.Eq(5),
 		"Test2": gomock.Any(),
 	})
@@ -58,7 +58,7 @@ func TestStructMatcher(t *testing.T) {
 }
 
 func TestStructMatcherAsymmetric(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"Test1": gomock.Eq(5),
 		"Test2": gomock.Eq(5),
 	})
@@ -101,7 +101,7 @@ func TestStructMatcherAsymmetric(t *testing.T) {
 }
 
 func TestStructMatcherAsymmetricUnexported(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"test1": gomock.Eq(5),
 		"test2": gomock.Eq(5),
 	})
@@ -144,14 +144,14 @@ func TestStructMatcherAsymmetricUnexported(t *testing.T) {
 }
 
 func TestStructMatcherNonStruct(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"Test1": gomock.Eq(5),
 	})
 	assert.False(t, matcher.Matches(4))
 }
 
 func TestStructPointer(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"Test1": gomock.Eq(5),
 		"Test2": gomock.Any(),
 	})
@@ -184,8 +184,8 @@ func TestStructPointer(t *testing.T) {
 }
 
 func TestStructMatcherNested(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
-		"Test1": NewStructMatcher(StructMatch{
+	matcher := Struct(M{
+		"Test1": Struct(M{
 			"TestNested": gomock.Eq(5),
 		}),
 		"Test2": gomock.Eq(map[string]int{
@@ -225,7 +225,7 @@ func TestStructMatcherNested(t *testing.T) {
 }
 
 func TestStructMatcherDirectEquality(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"Test": 5,
 	})
 
@@ -234,7 +234,7 @@ func TestStructMatcherDirectEquality(t *testing.T) {
 }
 
 func TestStructMatcherUnexportedField(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"test": 5,
 	})
 
@@ -246,7 +246,7 @@ func TestStructMatcherString(t *testing.T) {
 		Field int
 	}
 
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"test1": gomock.Any(),
 		"Test2": "expectedVal",
 		"test3": expectedStruct{
@@ -270,7 +270,7 @@ func TestStructMatcherString(t *testing.T) {
 }
 
 func TestStructMatcherStringMap(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
+	matcher := Struct(M{
 		"test": map[string]int{
 			"field": 5,
 		},
@@ -286,8 +286,8 @@ func TestStructMatcherStringMap(t *testing.T) {
 }
 
 func TestStructMatcherStringNested(t *testing.T) {
-	matcher := NewStructMatcher(StructMatch{
-		"test": NewStructMatcher(StructMatch{
+	matcher := Struct(M{
+		"test": Struct(M{
 			"Test": 5,
 		}),
 	})

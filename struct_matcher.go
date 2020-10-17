@@ -10,18 +10,14 @@ import (
 	"github.com/golang/mock/gomock"
 )
 
-// StructMatch is a map describing what each field of the struct should look like. If the value is a gomock.Match, the
-// field is matched according to that matcher. Otherwise the field is mapped according to gomock.Eq(val).
-type StructMatch map[string]interface{}
-
-// NewStructMatcher returns a new structMatcher.
+// Struct returns a new structMatcher.
 //
 // structMatcher compares each field of a struct and returns whether or not the field matched according to the
-// gomock.Matcher set for the field on the input StructMatch. structMatcher will dereference pointers to the struct
-// being matched.
+// gomock.Matcher set for the field on the input M. If the value in M isn't a gomock.Matcher, gomock.Eq is used.
+// structMatcher will dereference pointers to the struct being matched.
 //
 // For example:
-// NewStructMatcher(StructMatch{
+// Struct(M{
 //   "FieldA": gomock.Eq(5),
 //   "FieldB": gomock.Any(),
 //   "FieldC": 4,
@@ -65,12 +61,12 @@ type StructMatch map[string]interface{}
 //   FieldA: 5,
 //   FieldB: "test1",
 // }
-func NewStructMatcher(s StructMatch) gomock.Matcher {
+func Struct(s M) gomock.Matcher {
 	return &structMatcher{structToMatch: s}
 }
 
 type structMatcher struct {
-	structToMatch StructMatch
+	structToMatch M
 }
 
 // Matches returns whether x is a match.
